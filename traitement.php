@@ -32,9 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     else{
-        echo "Formulaire soumis avec succès";
-
+        // Exécuter l'insertion
         require_once('insertion.php');
+        
+        // Rediriger vers la page index.php avec un message de succès
+        header('Location: index.php?success=1');
+        exit();
     }
 
 

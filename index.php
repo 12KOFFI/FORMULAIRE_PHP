@@ -45,6 +45,12 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
+                <?php if (isset($_GET['success']) && $_GET['success'] == 1) : ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Les données ont été enregistrées avec succès !
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
                 <div class="form-container">
                     <div class="form-header">
                         <h2 class="fw-bold text-primary">FICHE DE CORRECTION</h2>
