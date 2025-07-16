@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('insertion.php');
         
         // Rediriger vers la page index.php avec un message de succès
-        header('Location: index.php?success=1');
+        header('Location: index.php?success=1'); // rediriger vers la page index.php avec un message de succès
         exit();
     }
 

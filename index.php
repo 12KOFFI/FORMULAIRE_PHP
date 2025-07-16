@@ -103,7 +103,15 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="code_examen" class="form-label">Code examen</label>
-                                <input type="text" class="form-control" id="code_examen" name="code_examen" required>
+                                <select class="form-select" id="code_examen" name="code_examen" required>
+                                    <option value="">Sélectionnez un examen</option>
+                                    <option value="BEP">BEP</option>
+                                    <option value="BAC">BAC</option>
+                                    <option value="BTS">BTS</option>
+                                    <option value="LIC">LIC</option>
+                                    <option value="MAS">MAS</option>
+                                    <option value="DOC">DOC</option>
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="nom_examen" class="form-label">Nom examen</label>
@@ -146,8 +154,32 @@
 
                         <!-- Bouton -->
                         <div class="submit-section">
-                            <button type="submit" class="btn btn-primary w-100 btn-lg">Enregistrer</button>
+                            <button type="button" class="btn btn-primary w-100 btn-lg" id="btnSubmit">Enregistrer</button>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmation -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Les informations sont-elles correctes ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non, annuler</button>
+                    <button type="button" class="btn btn-primary" id="confirmSubmit">Oui, envoyer</button>
+                </div>
+            </div>
+        </div>
+    </div>
                     </form>
                 </div>
             </div>
@@ -156,6 +188,43 @@
 
     <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script pour lier les codes d'examen avec leurs noms -->
+    <script>
+        const examens = {
+            'BEP': 'Brevet d\'Études Professionnelles',
+            'BAC': 'Baccalauréat',
+            'BTS': 'Brevet de Technicien Supérieur',
+            'LIC': 'Licence',
+            'MAS': 'Master',
+            'DOC': 'Doctorat'
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeExamenSelect = document.getElementById('code_examen');
+            const nomExamenInput = document.getElementById('nom_examen');
+            const btnSubmit = document.getElementById('btnSubmit');
+            const form = document.querySelector('form');
+            const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            const confirmSubmit = document.getElementById('confirmSubmit');
+
+            codeExamenSelect.addEventListener('change', function() {
+                const selectedCode = this.value;
+                if (selectedCode) {
+                    nomExamenInput.value = examens[selectedCode];
+                } else {
+                    nomExamenInput.value = '';
+                }
+            });
+
+            btnSubmit.addEventListener('click', function() {
+                modal.show();
+            });
+
+            confirmSubmit.addEventListener('click', function() {
+                form.submit();
+            });
+        });
+    </script>
 
     <!-- JS pour barrer option non choisie -->
     <script>
