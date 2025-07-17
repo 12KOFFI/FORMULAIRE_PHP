@@ -11,8 +11,6 @@ try{
 
     // php lance une exception si une erreur se produit avec un message d'erreur 
     $connect->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); 
-    
-    echo "Connection reussie";
 }
 // on capture l'exception et on affiche le message d'erreur
 catch(PDOException $e){

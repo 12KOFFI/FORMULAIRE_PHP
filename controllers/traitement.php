@@ -1,6 +1,5 @@
 <?php
-
-
+session_start();
 // Fonction pour nettoyer les données
 function nettoyer($data) {
     return htmlspecialchars(trim($data));
@@ -33,10 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     else{
         // Exécuter l'insertion
-        require_once('insertion.php');
+        require_once('../controllers/insertion.php');
         
         // Rediriger vers la page index.php avec un message de succès
-        header('Location: index.php?success=1'); // rediriger vers la page index.php avec un message de succès
+        header('Location: ../views/Lister.php');
+        $_SESSION['success'] = 'Donnees ajoutees avec succes !';
         exit();
     }
 

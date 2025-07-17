@@ -1,245 +1,128 @@
+<?php
+require_once 'include/header.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiche de Correction</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Système de Gestion des Fiches de Correction</title>
 
-        .form-container {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
-        .form-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-        .strike {
-            text-decoration: line-through;
-            opacity: 0.5;
-        }
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        label.form-check-label:hover {
-            cursor: pointer;
-            opacity: 0.8;
-        }
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+    }
 
-        .submit-section {
-            text-align: center;
-        }
-    </style>
+    .hero-section {
+      background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+      color: white;
+      padding: 6rem 0;
+      border-radius: 0 0 2rem 2rem;
+    }
+
+    .hero-section h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero-section p {
+      font-size: 1.25rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-icon.text-primary { color: #0d6efd; }
+    .feature-icon.text-success { color: #198754; }
+    .feature-icon.text-warning { color: #ffc107; }
+
+    .btn-primary {
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <?php if (isset($_GET['success']) && $_GET['success'] == 1) : ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Les données ont été enregistrées avec succès !
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php endif; ?>
-                <div class="form-container">
-                    <div class="form-header">
-                        <h2 class="fw-bold text-primary">FICHE DE CORRECTION</h2>
-                    </div>
-                    <form action="traitement.php" method="post">
-                        <!-- Infos Professeur -->
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="nom" class="form-label">Nom du professeur</label>
-                                <input type="text" class="form-control" id="nom" name="nom_prof" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="prenom" class="form-label">Prénom du professeur</label>
-                                <input type="text" class="form-control" id="prenom" name="prenom_prof" required>
-                            </div>
-                        </div>
 
-                        <!-- Grade -->
-                        <div class="mb-3">
-                            <label class="form-label">Grade</label>
-                            <div class="d-flex flex-wrap gap-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="grade_prof" id="vip" value="VIP" required>
-                                    <label class="form-check-label" for="vip">VIP</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="grade_prof" id="maitre" value="Maitre">
-                                    <label class="form-check-label" for="maitre">Maître</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="grade_prof" id="assistant" value="Assistant">
-                                    <label class="form-check-label" for="assistant">Assistant</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Etablissement -->
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="etablissement" class="form-label">Nom établissement</label>
-                                <input type="text" class="form-control" id="etablissement" name="nom_etablissement" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="ville" class="form-label">Ville établissement</label>
-                                <input type="text" class="form-control" id="ville" name="ville" required>
-                            </div>
-                        </div>
-
-                        <!-- Examen -->
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="code_examen" class="form-label">Code examen</label>
-                                <select class="form-select" id="code_examen" name="code_examen" required>
-                                    <option value="">Sélectionnez un examen</option>
-                                    <option value="BEP">BEP</option>
-                                    <option value="BAC">BAC</option>
-                                    <option value="BTS">BTS</option>
-                                    <option value="LIC">LIC</option>
-                                    <option value="MAS">MAS</option>
-                                    <option value="DOC">DOC</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="nom_examen" class="form-label">Nom examen</label>
-                                <input type="text" class="form-control" id="nom_examen" name="nom_examen" required>
-                            </div>
-                        </div>
-
-                        <!-- Epreuve -->
-                        <div class="mb-3">
-                            <label for="nom_epreuve" class="form-label">Nom épreuve</label>
-                            <input type="text" class="form-control" id="nom_epreuve" name="nom_epreuve" required>
-                        </div>
-
-                        <!-- Type épreuve -->
-                        <div class="mb-3">
-                            <label class="form-label">Type épreuve</label>
-                            <div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="type_epreuve" id="ecrit" value="ecrit" required>
-                                    <label class="form-check-label" for="ecrit">Écrit</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="type_epreuve" id="oral" value="oral">
-                                    <label class="form-check-label" for="oral">Oral</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Dates et copies -->
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <label for="dates_correction" class="form-label">Date de correction</label>
-                                <input type="date" class="form-control" id="dates_correction" name="dates_correction" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="nombre_copies" class="form-label">Nombre de copies</label>
-                                <input type="number" class="form-control" id="nombre_copies" name="nb_copies" required>
-                            </div>
-                        </div>
-
-                        <!-- Bouton -->
-                        <div class="submit-section">
-                            <button type="button" class="btn btn-primary w-100 btn-lg" id="btnSubmit">Enregistrer</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+  <div class="hero-section text-center">
+    <div class="container">
+      <h1>Bienvenue sur le Système de Gestion des Fiches de Correction</h1>
+      <p class="lead mb-4">Une solution intuitive pour gérer efficacement les corrections d’examens</p>
+      <a href="views/form_ajout.php" class="btn btn-light text-primary fw-bold shadow-sm">
+        <i class="fas fa-plus-circle me-2"></i>Commencer maintenant
+      </a>
     </div>
+  </div>
 
-    <!-- Modal de confirmation -->
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Les informations sont-elles correctes ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non, annuler</button>
-                    <button type="button" class="btn btn-primary" id="confirmSubmit">Oui, envoyer</button>
-                </div>
-            </div>
+  <div class="container py-5">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon text-primary">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <h3>Gestion des Fiches</h3>
+          <p>Créez, modifiez et suivez toutes vos fiches de correction d'examen de manière organisée.</p>
         </div>
-    </div>
-                    </form>
-                </div>
-            </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon text-warning">
+            <i class="fas fa-calendar-day"></i>
+          </div>
+          <h3>Suivi des Dates</h3>
+          <p>Planifiez et contrôlez les dates de correction avec clarté et efficacité.</p>
         </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon text-success">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Sécurité</h3>
+          <p>Vos données sont protégées grâce à des mesures de sécurité renforcées.</p>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Bootstrap Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script pour lier les codes d'examen avec leurs noms -->
-    <script>
-        const examens = {
-            'BEP': 'Brevet d\'Études Professionnelles',
-            'BAC': 'Baccalauréat',
-            'BTS': 'Brevet de Technicien Supérieur',
-            'LIC': 'Licence',
-            'MAS': 'Master',
-            'DOC': 'Doctorat'
-        };
+  <?php require_once 'include/footer.php'; ?>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const codeExamenSelect = document.getElementById('code_examen');
-            const nomExamenInput = document.getElementById('nom_examen');
-            const btnSubmit = document.getElementById('btnSubmit');
-            const form = document.querySelector('form');
-            const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-            const confirmSubmit = document.getElementById('confirmSubmit');
-
-            codeExamenSelect.addEventListener('change', function() {
-                const selectedCode = this.value;
-                if (selectedCode) {
-                    nomExamenInput.value = examens[selectedCode];
-                } else {
-                    nomExamenInput.value = '';
-                }
-            });
-
-            btnSubmit.addEventListener('click', function() {
-                modal.show();
-            });
-
-            confirmSubmit.addEventListener('click', function() {
-                form.submit();
-            });
-        });
-    </script>
-
-    <!-- JS pour barrer option non choisie -->
-    <script>
-        document.querySelectorAll('input[name="type_epreuve"]').forEach(radio => {
-            radio.addEventListener('change', function () {
-                const labels = document.querySelectorAll('.form-check-label');
-                labels.forEach(label => label.classList.remove('strike'));
-
-                if (this.value === 'ecrit') {
-                    document.querySelector('label[for="oral"]').classList.add('strike');
-                } else {
-                    document.querySelector('label[for="ecrit"]').classList.add('strike');
-                }
-            });
-        });
-    </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

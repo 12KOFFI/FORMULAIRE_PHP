@@ -1,5 +1,5 @@
 <?php
-require_once("config/connect_bd.php"); // Connexion à la BD
+require_once("../config/connect_bd.php"); // Connexion à la BD
 
 try {
     // Requête 1 : insertion dans etablissement
